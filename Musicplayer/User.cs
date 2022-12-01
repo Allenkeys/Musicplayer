@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Musicplayer
 {
-    internal class User
-    {   
+    internal class User 
+    {
         public User()
         {
         }
+
         internal List<Playlist> _playlists = new List<Playlist>();
 
         public void CreatePlaylist()
@@ -25,13 +26,33 @@ namespace Musicplayer
             else
             {
                 Playlist playlist = new Playlist(playlistName);
-                //Suggest adding a song on the playlist to the user
-                Console.WriteLine("Would you like to add new songs to this playlist?\n Enter Y/N");
+                Console.WriteLine("Would you like to add new songs to this playlist?\nEnter Y/N");
                 string yesOrNo = Console.ReadLine().ToUpper().Trim();
                 switch (yesOrNo)
                 {
-                    case "Y": playlist.AddSongToPlaylist("Hello", "Adele", new DateTime(12, 12, 12)); break;
-                    //case "N": break;
+                    case "Y":
+                        Start: Console.WriteLine("Enter title of the song");
+                        string songTitle = Console.ReadLine();
+                        Console.WriteLine("Enter name of the music artiste");
+                        string songArtiste = Console.ReadLine();
+                        Console.WriteLine("Please enter the song release date");
+                        if (DateTime.TryParse(Console.ReadLine(), out DateTime releaseDate) && !string.IsNullOrEmpty(songTitle) && !string.IsNullOrEmpty(songArtiste))
+                        {
+                            playlist.AddSongToPlaylist(songTitle, songArtiste, releaseDate);
+
+                            Console.WriteLine($"Would you like to add more songs to {playlistName.ToUpper()} playlist?\nEnter Y/N");
+                            string repeat = Console.ReadLine().ToUpper().Trim();
+                            if (!string.IsNullOrEmpty(yesOrNo) && repeat == "Y")
+                            {
+                                goto Start;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Your inputs are invalid...\nPlease ensure you enter title and artiste\nEnsure you entered release date in this format - DD/MM/YY");
+                        }
+                        break;
+                    
                     default: break;
                 }
                 _playlists.Add(playlist);
@@ -39,7 +60,6 @@ namespace Musicplayer
             }
             
         }
-
 
         public void DisplayAllPlaylists()
         {
@@ -49,18 +69,5 @@ namespace Musicplayer
             }
         }
 
-
-       /* Console.WriteLine("enter playlist name:");
-        string? playListName = Console.ReadLine();
-        Playlist playlist = new Playlist(playListName);
-        playlist.AddSongToPlaylist("Holla", "Unknown", new DateTime(2012, 12, 2));
-            playlist.AddSongToPlaylist("Hello", "Adele", new DateTime(2010, 12, 2));
-            playlist.AddSongToPlaylist("Aye", "Davido", new DateTime(2011, 10, 2));
-            playlist.DisplayPlaylist();
-            Console.WriteLine("Enter song title to delete");
-            string songTitle = Console.ReadLine().ToUpper();
-        playlist.RemoveSongFromPlaylist(songTitle);
-           // Console.WriteLine("enter new name");
-            playlist.RenameSong();*/
     }
 }
