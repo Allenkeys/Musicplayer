@@ -19,7 +19,7 @@ namespace Musicplayer
             Console.WriteLine($"\"{song.Title}\" sung by {song.Artiste} and released on {song.ReleaseDate.ToShortDateString()} has been added to {PlaylistName} playlist");
         }
 
-        public void DisplayPlaylist()
+        public void DisplayPlaylistSongs()
         {
             StringBuilder playlist = new StringBuilder();
             playlist.AppendLine($"******************{PlaylistName.ToUpper()}*******************");
@@ -28,7 +28,7 @@ namespace Musicplayer
             {
                 playlist.AppendLine($"{song.Title}\t\t{song.Artiste}\t\t{song.ReleaseDate.ToShortDateString()}");
             }
-            Console.WriteLine(playlist);
+            Console.WriteLine(playlist.ToString());
         }
 
         public void RemoveSongFromPlaylist(string title)
@@ -38,20 +38,22 @@ namespace Musicplayer
             {
                 Console.WriteLine($"{queryOutput.Title} has been successfully removed from {PlaylistName.ToUpper()} playlist.");
                 _playListSongs.Remove(queryOutput);
-                DisplayPlaylist();
+                DisplayPlaylistSongs();
             }
 
         }
 
         public Song SearchSong(string title)
         {
-            Song? song = _playListSongs.FirstOrDefault(s => s.Title == title);
+            Song? song = _playListSongs.FirstOrDefault(song => song.Title == title);
             if(song == null)
             {
                 Console.WriteLine("Sorry, song not found...");
             }
             return song;
         }
+
+        
 
         public void RenameSong()
         {
@@ -70,7 +72,7 @@ namespace Musicplayer
                         song.Title = newTitle;
                     }
                 }
-                DisplayPlaylist();
+                DisplayPlaylistSongs();
             }
         }
 
