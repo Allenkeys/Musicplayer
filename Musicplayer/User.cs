@@ -11,7 +11,7 @@
         public void CreatePlaylist()
         {
             Console.WriteLine("Enter name for new playlist");
-            string playlistName = Console.ReadLine().Trim().ToUpper();
+            string? playlistName = Console.ReadLine().Trim().ToUpper();
             if (string.IsNullOrEmpty(playlistName))
             {
                 Console.WriteLine("Playlist name cannot be empty");
@@ -53,6 +53,7 @@
                 _playlists.Add(playlist);
                 playlist.DisplayPlaylistSongs();
                 InstantDisplayPlaylisSongs();
+                playlist.SortPlaylist();
 
             }
 

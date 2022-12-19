@@ -7,6 +7,7 @@
             User user = new User();
             user.CreatePlaylist();
             user.DisplayAllPlaylists();
+            
         }
     }
 }
