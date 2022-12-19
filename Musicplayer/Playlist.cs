@@ -88,7 +88,7 @@ namespace Musicplayer
         public void ShufflePlaylist()
         {
             Random rand = new Random();
-            _playListSongs = (List<Song>)_playListSongs.OrderBy(Song => rand.Next());
+            _playListSongs = _playListSongs.OrderBy(Song => rand.Next()).ToList();
             foreach (var song in _playListSongs)
             {
                 Console.WriteLine($"title: {song.Title}   Artiste: {song.Artiste}");
